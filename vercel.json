@@ -4,7 +4,7 @@
   "buildCommand": "npm run start",
   "builds": [
     {
-      "src": "app/main.js",
+      "src": "app",
       "use": "@vercel/node"
     }
   ]
