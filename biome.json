@@ -33,8 +33,7 @@
   },
   "files": {
     "ignore": [
-      "dist/*.*",
-      "hyper-express-adapter.ts"
+      "dist/*.*"
     ]
   }
 }

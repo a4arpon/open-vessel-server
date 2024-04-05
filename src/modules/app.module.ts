@@ -1,23 +1,26 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { AppController } from './app.controller';
-import { PublicModule } from './public/public.module';
-import { PrivateModule } from './private/private.module';
-import { AdminModule } from './admin/admin.module';
+import { Module } from "@nestjs/common"
+import { ConfigModule } from "@nestjs/config"
+import { AppController } from "./app.controller"
+import { AuthController } from "./auth/auth.controller"
+
+import { RouterModule } from "@nestjs/core"
+import { AuthService } from "./auth/auth.service"
+import { PostsModule } from "./posts/posts.module"
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    PublicModule,
-    PrivateModule,
-    AdminModule,
+    PostsModule,
+    RouterModule.register([
+      {
+        path: "posts",
+        module: PostsModule,
+      },
+    ]),
   ],
-  controllers: [AppController],
-  providers: [],
+  controllers: [AppController, AuthController],
+  providers: [AuthService],
 })
 export class AppModule {}
-
-
-
