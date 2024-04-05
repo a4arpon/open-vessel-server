@@ -27,13 +27,27 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
-      - name: Move dist folder to release branch
+      - name: Rename dist folder to app
         run: |
           if [ -d "dist" ]; then
-            git checkout release
-            mkdir -p release
-            mv dist/* release/
-            git add release/
-            git commit -m "New Deployment Added"
-            git push origin release
+            mv dist app
           fi
+      
+      - name: Ls Release
+        run: cd app && ls -a && cd ..
+
+      - name: Create release directory
+        run: mkdir release
+
+      - name: Copy main branch contents to release
+        run: cp -r . release/
+
+      - name: Move app folder to release
+        run: mv app release/
+
+      - name: Commit changes
+        run: |
+          git checkout -B release
+          git add release/
+          git commit -m "Add app folder from main branch"
+          git push origin release
