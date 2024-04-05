@@ -16,11 +16,12 @@ async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter({
-      logger: {
-        transport: {
-          target: "@fastify/one-line-logger",
-        },
-      },
+      logger: true,
+      // logger: {
+      //   transport: {
+      //     target: "@fastify/one-line-logger",
+      //   },
+      // },
     })
   )
 
