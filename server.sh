@@ -1,1 +1,1 @@
-npm run build && node dist/main
+npm install && npm run build && node dist/main
