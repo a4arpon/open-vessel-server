@@ -34,6 +34,6 @@ jobs:
             mkdir -p release
             mv dist/* release/
             git add release/
-            git commit -m "Add dist folder from main branch"
+            git commit -m "New Deployment Added"
             git push origin release
           fi
