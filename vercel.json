@@ -11,8 +11,8 @@
       }
     }
   ],
-  "buildCommand": "npm start",
-  "installCommand": "npm install && npm build",
+  "buildCommand": "npm build && npm start",
+  "installCommand": "npm install ",
   "outputDirectory": "dist",
   "routes": [
     {
