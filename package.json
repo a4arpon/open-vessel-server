@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start": "node dist/main",
+    "start": "node app/main",
     "start:nest": "nest start",
     "build": "nest build",
     "dev": "nest start --watch",
