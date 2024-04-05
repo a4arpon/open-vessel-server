@@ -25,29 +25,17 @@ jobs:
         run: npm run lint
 
       - name: Build
-        run: npm run build --if-present
+        run: npm run build
 
       - name: Rename dist folder to app
         run: |
           if [ -d "dist" ]; then
             mv dist app
           fi
-      
-      - name: Ls Release
-        run: cd app && ls -a && cd ..
 
-      - name: Create release directory
-        run: mkdir release
-
-      - name: Copy main branch contents to release
-        run: cp -r . release/
-
-      - name: Move app folder to release
-        run: mv app release/
-
-      - name: Commit changes
+      - name: Deploy to Vercel
         run: |
-          git checkout -B release
-          git add release/
-          git commit -m "Add app folder from main branch"
-          git push origin release
+          npm install -g vercel
+          vercel --prod --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
