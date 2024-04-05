@@ -5,6 +5,6 @@ import { Controller, Get } from "@nestjs/common"
 export class AppController {
   @Get()
   async app() {
-    return response("Open Vessel")
+    return response("Open Vessel Server")
   }
 }
