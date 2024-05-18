@@ -1,0 +1,21 @@
+# Set the working directory
+[phases.setup]
+cmds = ["mkdir -p /usr/src/app"]
+nixPkgs = ["nodejs_20"]
+
+# Install dependencies and build the project
+[phases.install]
+cmds = ["cp package*.json /usr/src/app", "npm install"]
+nixPkgs = ["cowsay"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+# Remove unnecessary directories
+[phases.cleanup]
+cmds = ["rm -rf /usr/src/app/src"]
+
+# Expose port 4000
+[start]
+cmd = "npm run start"
+ports = ["4000"]  # Add this line to expose port 4000
