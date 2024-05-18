@@ -1,5 +1,5 @@
-import { response } from "@/utils/req-res-helpers"
-import { Controller, Get } from "@nestjs/common"
+import {response} from "@/utils/req-res-helpers"
+import {Controller, Get} from "@nestjs/common"
 
 @Controller()
 export class AppController {

@@ -1,8 +1,9 @@
-import { Injectable } from "@nestjs/common"
+import {response} from "@/utils/req-res-helpers"
+import {Injectable} from "@nestjs/common"
 
 @Injectable()
 export class AuthService {
   async login() {
-    console.log("LOL")
+    return response("")
   }
 }

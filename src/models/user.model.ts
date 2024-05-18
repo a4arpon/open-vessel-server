@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import {model, Schema} from "mongoose"
 
 const userSchema = new Schema({
   kyc: {
@@ -10,21 +10,17 @@ const userSchema = new Schema({
     require: true,
     unique: true,
   },
-  password: {
-    type: String,
-    require: true,
-  },
   pref: {
     name: String,
     phone: String,
     bloodGroup: String,
-    bloodDonations: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "bloodPost",
-      },
-    ],
   },
+  bloodDonations: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "bloodPost",
+    },
+  ],
   status: {
     type: String,
     default: "PENDING",

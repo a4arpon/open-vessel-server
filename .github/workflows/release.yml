@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - release
 
 jobs:
   build:
@@ -26,7 +26,7 @@ jobs:
 
       - name: Build
         run: npm run build
-      
+
       - name: Remove Src
         run: rm -rf src
 

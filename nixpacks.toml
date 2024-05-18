@@ -1,0 +1,20 @@
+[project]
+id = "open-vessel-server"
+repo = "https://github.com/a4arpon/open-vessel-server"
+
+[build]
+commands = [
+  "npm install",
+  "npm run build"
+]
+
+[post-build]
+commands = [
+  "rm -rf src"
+]
+
+[start]
+command = "npm run start"
+
+[environment]
+nodejs_version = "20.13.1"

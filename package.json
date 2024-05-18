@@ -6,7 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start": "node app/main",
+    "start": "node dist/main",
+    "start:app": "node app/main",
     "start:nest": "nest start",
     "build": "nest build",
     "dev": "nest start --watch",
@@ -25,6 +26,7 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-fastify": "^10.3.7",
     "@nestjs/swagger": "^7.3.1",
+    "@scalar/fastify-api-reference": "^1.22.20",
     "mongoose": "^8.2.4"
   },
   "devDependencies": {
