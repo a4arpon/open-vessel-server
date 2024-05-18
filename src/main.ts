@@ -58,7 +58,6 @@ async function bootstrap() {
     max: 100,
     timeWindow: "1 minute",
   })
-
   await app.listen(
     process.env.PORT ?? "4001", 
     process.env.HOST ?? "127.0.0.1"
