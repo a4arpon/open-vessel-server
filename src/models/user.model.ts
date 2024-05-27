@@ -1,34 +1,62 @@
-import {model, Schema} from "mongoose"
+import { Schema, model } from "mongoose"
 
-const userSchema = new Schema({
-  kyc: {
-    type: Schema.Types.ObjectId,
-    ref: "KYC",
-  },
-  email: {
-    type: String,
-    require: true,
-    unique: true,
-  },
+export type UserType = {
+  _id: string
+  email: string
   pref: {
-    name: String,
-    phone: String,
-    bloodGroup: String,
-  },
-  bloodDonations: [
+    name: string
+    phone: string
+    bloodGroup: string
+  }
+  friends: UserType
+  bloodDonations: string
+  status: string
+  sessions: string[]
+  createdAt: Date
+}
+
+export const Users = model(
+  "User",
+  new Schema<UserType>(
     {
-      type: Schema.Types.ObjectId,
-      ref: "bloodPost",
+      email: {
+        type: String,
+        require: true,
+        unique: true,
+      },
+      pref: {
+        name: String,
+        phone: String,
+        bloodGroup: String,
+      },
+      friends: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+      ],
+      bloodDonations: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: "bloodPost",
+        },
+      ],
+      status: {
+        type: String,
+        default: "PENDING",
+        enum: [
+          "ACTIVE",
+          "BLOCKED",
+          "DELETED",
+          "DISABLED",
+          "PENDING",
+          "REJECTED",
+        ],
+      },
+      sessions: [String],
     },
-  ],
-  status: {
-    type: String,
-    default: "PENDING",
-    enum: ["ACTIVE", "BLOCKED", "DELETED", "DISABLED", "PENDING", "REJECTED"],
-  },
-  sessions: [String],
-})
-
-const UserModel = model("User", userSchema)
-
-export default UserModel
+    {
+      timestamps: true,
+    }
+  )
+)

@@ -1,10 +1,16 @@
 import fastifyCompress from "@fastify/compress"
 import fastifyCors from "@fastify/cors"
+import fastifyHelmet from "@fastify/helmet"
 import fastifyRateLimit from "@fastify/rate-limit"
 import { VersioningType } from "@nestjs/common"
 import { NestFactory } from "@nestjs/core"
-import { FastifyAdapter, type NestFastifyApplication, } from "@nestjs/platform-fastify"
-
+import {
+  FastifyAdapter,
+  type NestFastifyApplication,
+} from "@nestjs/platform-fastify"
+import { SwaggerModule } from "@nestjs/swagger"
+import scalar from '@scalar/fastify-api-reference'
+import { documentConfig } from "./docs/swaggerDocs"
 import { AppModule } from "./modules/app.module"
 
 type Logger = {
@@ -39,18 +45,18 @@ async function bootstrap() {
     origin: "*",
     strictPreflight: true,
   })
-  // await app.register(fastifyHelmet, {
-  //   xXssProtection: true,
-  //   noSniff: true,
-  //   crossOriginEmbedderPolicy: true,
-  //   contentSecurityPolicy: true,
-  //   crossOriginOpenerPolicy: true,
-  //   xFrameOptions: {
-  //     action: "deny",
-  //   },
-  //   xDownloadOptions: true,
-  //   hidePoweredBy: true,
-  // })
+  await app.register(fastifyHelmet, {
+    xXssProtection: true,
+    noSniff: true,
+    crossOriginEmbedderPolicy: true,
+    contentSecurityPolicy: true,
+    crossOriginOpenerPolicy: true,
+    xFrameOptions: {
+      action: "deny",
+    },
+    xDownloadOptions: true,
+    hidePoweredBy: true,
+  })
   await app.register(fastifyCompress, {
     encodings: ["gzip", "deflate"],
   })
@@ -59,6 +65,16 @@ async function bootstrap() {
     timeWindow: "1 minute",
   })
 
-  await app.listen(process.env.PORT ?? "4001", '0.0.0.0')
+  await app.register(scalar, {
+    routePrefix: "/docs",
+    configuration: {
+      darkMode: true,
+      spec: {
+        content: SwaggerModule.createDocument(app, documentConfig),
+      },
+    },
+  })
+
+  await app.listen(process.env.PORT ?? "4001", "0.0.0.0")
 }
 bootstrap()
